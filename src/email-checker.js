@@ -1,18 +1,16 @@
 /**
  * Email Checker JS
+ *
  * @description Validador y corrector de emails para Derecho.com
  * @see {@link https://gist.github.com/alexhoma/e3ea1a134dead1671011b4acb55b6522}
  *
  * @author alexhoma <alexcm.14@gmail.com>
  * @version 1.0.3
- *
- * @class
  */
-function EmailChecker() {
-    this.version = '1.0.3';
-}
 
-EmailChecker.prototype = {
+var emailChecker;
+
+emailChecker = {
     // Arrays con los dominios y tld's correctos
     whitelist: [
         'gmail', 'hotmail', 'yahoo', 'outlook', 'derecho'

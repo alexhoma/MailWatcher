@@ -4,18 +4,17 @@ module.exports = function(grunt){
 
         pkg: grunt.file.readJSON('package.json'),
 
-        browserify: {
+        /*browserify: {
             bundle: {
-                files: {
-                    'src/email-checker.js': ['src/**/*.js'],
-                }
+                src: 'src/email-checker.js',
+                dest: 'dist/email-checker.js'
             }
-        },
+        },*/
 
         uglify: {
             build: {
                 files: {
-                    'dist/email-checker.min.js': ['dist/email-checker.js']
+                    'dist/email-checker.min.js': ['src/email-checker.js']
                 }
             }
         },
@@ -23,7 +22,7 @@ module.exports = function(grunt){
         watch: {
             scripts: {
                 files: ['src/**/*.js'],
-                tasks: ['uglify:build'],
+                tasks: [/*'browserify:bundle',*/'uglify:build'],
                 options: {
                     spawn: false,
                 }
@@ -32,7 +31,7 @@ module.exports = function(grunt){
 
     });
 
-    grunt.loadNpmTasks('grunt-browserify');
+    //grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
 

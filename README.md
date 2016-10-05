@@ -27,18 +27,6 @@ emailInput.addEventListener('change', function() {
 });
 ```
 
-## Usage for Derecho.com
-Vistas en las que está incluida actualmente la libreria:
-- One Step Checkout --> `onestep.js`
-- Register --> `functions.js`
-
-En el caso de Magento, el `emailChecker.js` debe llamarse vía xml con el siguiente tag:
-```xml
-<reference name="head">
-	<action method="addJs"><script>global/emailChecker.js</script></action>
-</reference>
-```
-
 ## Todo's
 
 - Implementar correcciones para los TLD's.

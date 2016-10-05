@@ -1,4 +1,5 @@
 # Email Checker (email-checker.js)
+An easy to use email checker for typos in domain names.
 
 ## Description
 Corrector de emails erróneos o que es muy probable que lo sean.

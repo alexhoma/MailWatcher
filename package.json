@@ -1,0 +1,33 @@
+{
+  "name": "email-checker",
+  "version": "1.0.0",
+  "description": "Email checker for common errors in domain and TLD names.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexhoma/email-checker.git"
+  },
+  "keywords": [
+    "Email",
+    "checker",
+    "validator",
+    "email",
+    "validator",
+    "corrector"
+  ],
+  "author": "alexhoma <alexcm.14@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/alexhoma/email-checker/issues"
+  },
+  "homepage": "https://github.com/alexhoma/email-checker#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0"
+  }
+}

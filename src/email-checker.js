@@ -8,9 +8,12 @@
  * @version 1.0.3
  */
 
-var emailChecker;
+var EmailChecker = function () {
+    this.NAME = 'EmailChecker';
+    this.VERSION = '1.0.3';
+}
 
-emailChecker = {
+EmailChecker.prototype = {
     // Arrays con los dominios y tld's correctos
     whitelist: [
         'gmail', 'hotmail', 'yahoo', 'outlook', 'derecho'

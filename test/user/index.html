@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User test</title>
+    <script src="../../src/email-checker.js"></script>
+</head>
+<body>
+    <p>Testing form</p>
+    <form action="#">
+        <input type="text" id="email">
+        <button type="input">Send</button>
+    </form>
+
+    <script>
+        var email = document.getElementById('email');
+        email.addEventListener('change', function () {
+            var checker = new EmailChecker();
+            checker.check(this)
+        });
+    </script>
+</body>
+</html>

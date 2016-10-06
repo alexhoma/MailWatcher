@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Email Checker JS
  *
@@ -6,24 +8,29 @@
  *
  * @author alexhoma <alexcm.14@gmail.com>
  * @version 1.0.3
+ *
+ * @class
  */
-
 var EmailChecker = function () {
     this.NAME = 'EmailChecker';
     this.VERSION = '1.0.3';
 }
 
 EmailChecker.prototype = {
-    // Arrays con los dominios y tld's correctos
+
+    constructor: EmailChecker,
+
     whitelist: [
         'gmail', 'hotmail', 'yahoo', 'outlook', 'derecho'
     ],
+
     blacklist: [
         /*Gmail*/   'gemail', 'gmil', 'gmal', 'emai', 'gmai',
         /*Hotmail*/ 'hotmal', 'hormal', 'hormail', 'homail', 'hitmail', 'hotamail',
         /*Yahoo*/   'yaho', 'yahho', 'yahooo', 'yaaho',
         /*Outlook*/ 'outlok', 'oultook', 'utlook', 'outoolk'
     ],
+
     validTLDs: [ // TODO: implementar correcciones para los TLD's
         'es', 'com'
     ],
@@ -123,7 +130,7 @@ EmailChecker.prototype = {
         var approach;
 
         // First approach: Comprobamos si coincide con algun dominio válido al 100%
-        for (i = 0; i < whitelist.length; i++) {
+        for (var i = 0; i < whitelist.length; i++) {
             approach = this.levenshtein(whitelist[i], domain);
             if (approach == 0) {
                 isValidEmail = true;
@@ -185,7 +192,7 @@ EmailChecker.prototype = {
         var matches = [];
 
         // Comparamos el email a reparar contra los emails válidos para sustituirlo
-        for (i = 0; i < this.whitelist.length; i++) {
+        for (var i = 0; i < this.whitelist.length; i++) {
             approach = this.levenshtein(this.whitelist[i], toRepair);
             if (approach >= 1 && approach <= 2) {
                 matches.push(this.whitelist[i]);
@@ -286,3 +293,5 @@ EmailChecker.prototype = {
         return sanitized;
     }
 };
+
+// module.exports = EmailChecker;

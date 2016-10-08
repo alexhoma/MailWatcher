@@ -15,7 +15,10 @@
     <script>
         var email = document.getElementById('email');
         email.addEventListener('change', function () {
-            var ec = new EmailChecker('email');
+            var ec = new EmailChecker('email', {
+                mode: 'soft',
+                locale: 'es-ES'
+            });
             ec.check()
         });
     </script>

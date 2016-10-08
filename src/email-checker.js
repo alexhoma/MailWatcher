@@ -15,7 +15,7 @@ var EmailChecker = function (emailId, settings) {
     this.NAME = 'EmailChecker';
     this.VERSION = '1.0.3';
     this.emailId = emailId;
-    this.settings = settings;
+    this.settings = this.updateDefaults(settings);
 }
 
 EmailChecker.prototype = {
@@ -34,17 +34,16 @@ EmailChecker.prototype = {
     ],
 
     validTLDs: [ // TODO: implementar correcciones para los TLD's
-        'es', 'com', 'net', 'barcelona'
+        'cat', 'es', 'com', 'net', 'org', 'io',
+        'barcelona', 'design', 'online', 'tech'
     ],
 
-    /**
-     *
-     */
+
+    // * Default options
     defaults: {
-        mode: 'strict', // use recommendations or sanitize directly
-        locale: 'en-En', // only one locale for now
-        whitelist: this.whitelist,
-        blacklist: this.blacklist
+        mode: 'hard', // 'hard' or 'soft' mode
+        locale: 'en-En',          // TODO: create locales for suggestions
+        blacklist: this.blacklist // TODO: Update blacklist array
     },
 
     /**
@@ -60,6 +59,12 @@ EmailChecker.prototype = {
         var e = email.value;
         var restored;
 
+        // remove suggestions
+        var suggestionElement = document.getElementById('suggestion');
+        if (suggestionElement !== null) {
+            suggestionElement.remove();
+        }
+
         // Descomponemos email
         var extracted  = this.splitEmail(e);
 
@@ -70,12 +75,19 @@ EmailChecker.prototype = {
         }
 
         // Reconstruimos el email y modificamos el DOM
+        debugger;
         if ( typeof restored !== "undefined" ) {
             var correctEmail = extracted.user + '@' + restored + '.' + extracted.tld;
-            var putFinalEmail = email.value = correctEmail;
-            return putFinalEmail;
+
+            if ( this.defaults.mode === 'hard' ) {
+                return email.value = correctEmail;
+            }
+            if ( this.defaults.mode === 'soft' ) {
+                var suggestion = this.suggest(correctEmail);
+                return email.parentNode.insertBefore(suggestion, email.nextSibling);
+            }
         } else {
-            return true;
+            return email.value = extracted.user + '@' + extracted.domain + '.' + extracted.tld;
         }
     },
 
@@ -101,7 +113,7 @@ EmailChecker.prototype = {
             user = e.split('@')[0];
             user = this.sanitize(user);
 
-            domain = e.split('@')[1];
+            domain = e.split('@')[1]; // TODO: support second level tld's --> domain[.co.uk]
             domain = domain.split('.')[0];
             domain = this.sanitize(domain);
 
@@ -298,7 +310,38 @@ EmailChecker.prototype = {
             sanitized = sanitized.toLowerCase();
 
         return sanitized;
+    },
+
+    /**
+     * Create a suggestion of valid email
+     *
+     * @param suggestion
+     * @returns {Element}
+     */
+    suggest: function (suggestion) {
+        var newSuggestion = document.createElement('div');
+            newSuggestion.setAttribute('id', 'suggestion');
+            newSuggestion.innerHTML = 'Did you mean ' + suggestion + '?';
+
+        return newSuggestion;
+    },
+
+    /**
+     * Update defaults with custom settings
+     *
+     * @param settings
+     */
+    updateDefaults: function (settings) {
+        debugger;
+        if (typeof settings === 'undefined') {
+            return;
+        } else if (typeof settings === 'object') {
+            Object.assign(this.defaults, settings);
+        } else {
+            throw new Error('Email custom settings must be an object: ' + settings);
+        }
     }
 };
 
+// TODO: modularize
 // module.exports = EmailChecker;

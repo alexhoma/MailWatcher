@@ -38,10 +38,29 @@ EmailChecker.prototype = {
         'barcelona', 'design', 'online', 'tech'
     ],
 
+    accuracy: {
+        high   : {min: 1, max: 2},
+        medium : {min: 2, max: 3},
+        low    : {min: 4, max: 5}
+    },
+
+    locale: {
+        'en-EN' : 'Did you mean',
+        'es-ES' : 'Querías decir',
+        'ca-ES' : 'Volies dir',
+        'pt-PT' : 'Você quis dizer',
+        'it-IT' : 'Intendevi',
+        'fr-FR' : 'Vouliez-vous dire',
+        //'de-DE' : 'Hast du gemeint',
+        //'nl-NL' : 'Bedoelde je'
+    },
+
     // * Default options
     defaults: {
         mode: 'hard', // 'hard' or 'soft' mode
-        locale: 'en-En'   // TODO: create locales for suggestions
+        locale: 'en-En',   // TODO: create locales for suggestions
+        accuracy: 'low', // medium or high
+        distance: 1 // 1 - 10
         // TODO: update whitelist and blacklist
     },
 
@@ -171,12 +190,15 @@ EmailChecker.prototype = {
         if (typeof isValidEmail == 'undefined' && domain.length > 5) { // filtro por longitud de cadena para acotar aproximación
             var distance;
             for (i = 0; i < this.whitelist.length; i++) {
+                debugger;
                 // calculamos la proximidad de cadenas --> máximo un dígito
                 distance = Math.round(this.whitelist[i].length - domain.length);
-                if (distance >= -1 && distance <= 1) {
+                if (distance >= -this.defaults.distance && distance <= this.defaults.distance) {
                     // calculamos aproximación levenshtein
                     approach = this.levenshtein(this.whitelist[i], domain);
-                    if (approach >= 1 && approach <= 2) {
+                    console.log(this.accuracy[this.defaults.accuracy].min);
+                    if (approach >= this.accuracy[this.defaults.accuracy].min &&
+                        approach <= this.accuracy[this.defaults.accuracy].max) {
                         isValidEmail = false;
                         break;
                     }
@@ -209,7 +231,8 @@ EmailChecker.prototype = {
         // Comparamos el email a reparar contra los emails válidos para sustituirlo
         for (var i = 0; i < this.whitelist.length; i++) {
             approach = this.levenshtein(this.whitelist[i], toRepair);
-            if (approach >= 1 && approach <= 2) {
+            if (approach >= this.accuracy[this.defaults.accuracy].min &&
+                approach <= this.accuracy[this.defaults.accuracy].max) {
                 matches.push(this.whitelist[i]);
             }
         }
@@ -317,7 +340,7 @@ EmailChecker.prototype = {
     suggest: function (suggestion) {
         var newSuggestion = document.createElement('div');
             newSuggestion.setAttribute('id', 'suggestion');
-            newSuggestion.innerHTML = 'Did you mean <a href="#" onclick="addEmail()">' + suggestion + '</a>?';
+            newSuggestion.innerHTML = this.locale[this.defaults.locale] + ' <a href="#" onclick="addEmail()">' + suggestion + '</a>?';
 
         return newSuggestion;
     },

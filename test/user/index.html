@@ -4,9 +4,26 @@
     <meta charset="UTF-8">
     <title>User test</title>
     <script src="../../src/email-checker.js"></script>
+    <style>
+        body { font-family: sans-serif; }
+        h1 { font-size:20px; }
+        #email {
+            width: 300px;
+            padding: 7px;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        button {
+            padding: 9px;
+            font-size: 15px;
+        }
+        #suggestion {
+            position: absolute;
+        }
+    </style>
 </head>
 <body>
-    <p>Testing form</p>
+    <h1>Testing form</h1>
     <form action="#">
         <input type="text" id="email">
         <button type="input">Send</button>
@@ -17,8 +34,9 @@
         email.addEventListener('change', function () {
             var ec = new EmailChecker('email', {
                 mode: 'soft',
-                locale: 'es-ES',
-                whitelist: ['gmaili','gmailer']
+                locale: 'fr-FR',
+                distance: 10,
+                accuracy: 'low'
             });
             ec.check()
         });

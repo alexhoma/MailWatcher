@@ -34,9 +34,8 @@
         email.addEventListener('change', function () {
             var ec = new EmailChecker('email', {
                 mode: 'soft',
-                locale: 'fr-FR',
-                distance: 10,
-                accuracy: 'low'
+                locale: 'haw-US',
+                distance: 1
             });
             ec.check()
         });

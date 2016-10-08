@@ -3,7 +3,7 @@
 /**
  * Email Checker JS
  *
- * @description Validador y corrector de emails
+ * @description Email sanitizer and domain checker
  * @see {@link https://gist.github.com/alexhoma/e3ea1a134dead1671011b4acb55b6522}
  *
  * @author alexhoma <alexcm.14@gmail.com>
@@ -33,33 +33,33 @@ EmailChecker.prototype = {
         /*Outlook*/ 'outlok', 'oultook', 'utlook', 'outoolk'
     ],
 
-    validTLDs: [ // TODO: implementar correcciones para los TLD's
+    validTLDs: [ // TODO: implement checker for TLD's
         'cat', 'es', 'com', 'net', 'org', 'io',
         'barcelona', 'design', 'online', 'tech'
     ],
 
     accuracy: {
         high   : {min: 1, max: 2},
-        medium : {min: 2, max: 3},
-        low    : {min: 4, max: 5}
+        medium : {min: 1, max: 3},
+        low    : {min: 1, max: 4},
+        lowest : {min: 1, max: 5}
     },
 
-    locale: {
+    locale: { // TODO: add locales as an external file ?
         'en-EN' : 'Did you mean',
         'es-ES' : 'Querías decir',
         'ca-ES' : 'Volies dir',
         'pt-PT' : 'Você quis dizer',
         'it-IT' : 'Intendevi',
         'fr-FR' : 'Vouliez-vous dire',
-        //'de-DE' : 'Hast du gemeint',
-        //'nl-NL' : 'Bedoelde je'
+        'haw-US': 'La oe i ke ano o'
     },
 
     // * Default options
     defaults: {
         mode: 'hard', // 'hard' or 'soft' mode
         locale: 'en-En',   // TODO: create locales for suggestions
-        accuracy: 'low', // medium or high
+        accuracy: 'medium', // medium or high
         distance: 1 // 1 - 10
         // TODO: update whitelist and blacklist
     },
@@ -69,8 +69,8 @@ EmailChecker.prototype = {
      *
      * @param email
      * @returns {bool/string}
-     *  -> bool (true): si el email no necdesita corrección
-     *  -> string: email corregido
+     *  -> bool (true): if the email domain doesn't need correction
+     *  -> string: email corrected
      */
     check: function () {
         var email = document.getElementById(this.emailId);
@@ -190,13 +190,11 @@ EmailChecker.prototype = {
         if (typeof isValidEmail == 'undefined' && domain.length > 5) { // filtro por longitud de cadena para acotar aproximación
             var distance;
             for (i = 0; i < this.whitelist.length; i++) {
-                debugger;
                 // calculamos la proximidad de cadenas --> máximo un dígito
                 distance = Math.round(this.whitelist[i].length - domain.length);
                 if (distance >= -this.defaults.distance && distance <= this.defaults.distance) {
                     // calculamos aproximación levenshtein
                     approach = this.levenshtein(this.whitelist[i], domain);
-                    console.log(this.accuracy[this.defaults.accuracy].min);
                     if (approach >= this.accuracy[this.defaults.accuracy].min &&
                         approach <= this.accuracy[this.defaults.accuracy].max) {
                         isValidEmail = false;
@@ -246,7 +244,7 @@ EmailChecker.prototype = {
                 console.log('Hay más de un email válido que coincide con la corrección. Por tanto no lo vamos a corregir.')
             }
         } else {
-            throw new Error('Unknown error: no matches for this email.');
+            console.log('No matches for this email.');
         }
 
         return restored;

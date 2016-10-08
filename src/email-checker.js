@@ -3,7 +3,7 @@
 /**
  * Email Checker JS
  *
- * @description Validador y corrector de emails para Derecho.com
+ * @description Validador y corrector de emails
  * @see {@link https://gist.github.com/alexhoma/e3ea1a134dead1671011b4acb55b6522}
  *
  * @author alexhoma <alexcm.14@gmail.com>
@@ -38,12 +38,11 @@ EmailChecker.prototype = {
         'barcelona', 'design', 'online', 'tech'
     ],
 
-
     // * Default options
     defaults: {
         mode: 'hard', // 'hard' or 'soft' mode
-        locale: 'en-En',          // TODO: create locales for suggestions
-        blacklist: this.blacklist // TODO: Update blacklist array
+        locale: 'en-En'   // TODO: create locales for suggestions
+        // TODO: update whitelist and blacklist
     },
 
     /**
@@ -75,7 +74,6 @@ EmailChecker.prototype = {
         }
 
         // Reconstruimos el email y modificamos el DOM
-        debugger;
         if ( typeof restored !== "undefined" ) {
             var correctEmail = extracted.user + '@' + restored + '.' + extracted.tld;
 
@@ -142,15 +140,13 @@ EmailChecker.prototype = {
      *  -> false: es inválido
      */
     validationApproach: function (domain) { // TODO: refacor this process
-        var blacklist = this.blacklist;
-        var whitelist = this.whitelist;
         var isInBlacklist = false;
         var isValidEmail;
         var approach;
 
         // First approach: Comprobamos si coincide con algun dominio válido al 100%
-        for (var i = 0; i < whitelist.length; i++) {
-            approach = this.levenshtein(whitelist[i], domain);
+        for (var i = 0; i < this.whitelist.length; i++) {
+            approach = this.levenshtein(this.whitelist[i], domain);
             if (approach == 0) {
                 isValidEmail = true;
                 break;
@@ -159,8 +155,8 @@ EmailChecker.prototype = {
 
         // Second approach: Comprueba si el 'dominio' figura en nuestro "blacklist" de dominios erróneos
         if (typeof isValidEmail == 'undefined') {
-            for (i = 0; i < blacklist.length; i++) {
-                if ( blacklist[i] == domain ) {
+            for (i = 0; i < this.blacklist.length; i++) {
+                if ( this.blacklist[i] == domain ) {
                     isValidEmail = false;
                     isInBlacklist = true;
                     break;
@@ -174,12 +170,12 @@ EmailChecker.prototype = {
         //       "Quizás quiso decir.."
         if (typeof isValidEmail == 'undefined' && domain.length > 5) { // filtro por longitud de cadena para acotar aproximación
             var distance;
-            for (i = 0; i < whitelist.length; i++) {
+            for (i = 0; i < this.whitelist.length; i++) {
                 // calculamos la proximidad de cadenas --> máximo un dígito
-                distance = Math.round(whitelist[i].length - domain.length);
+                distance = Math.round(this.whitelist[i].length - domain.length);
                 if (distance >= -1 && distance <= 1) {
                     // calculamos aproximación levenshtein
-                    approach = this.levenshtein(whitelist[i], domain);
+                    approach = this.levenshtein(this.whitelist[i], domain);
                     if (approach >= 1 && approach <= 2) {
                         isValidEmail = false;
                         break;
@@ -321,7 +317,7 @@ EmailChecker.prototype = {
     suggest: function (suggestion) {
         var newSuggestion = document.createElement('div');
             newSuggestion.setAttribute('id', 'suggestion');
-            newSuggestion.innerHTML = 'Did you mean ' + suggestion + '?';
+            newSuggestion.innerHTML = 'Did you mean <a href="#" onclick="addEmail()">' + suggestion + '</a>?';
 
         return newSuggestion;
     },
@@ -332,7 +328,6 @@ EmailChecker.prototype = {
      * @param settings
      */
     updateDefaults: function (settings) {
-        debugger;
         if (typeof settings === 'undefined') {
             return;
         } else if (typeof settings === 'object') {
@@ -342,6 +337,15 @@ EmailChecker.prototype = {
         }
     }
 };
+
+// TODO: do something with this, don't like inline scripts
+function addEmail () {
+    var anchor = document.querySelector('#suggestion a');
+    var email = document.getElementById('email');
+    var suggestion = document.getElementById('suggestion');
+    email.value = anchor.text;
+    suggestion.remove();
+}
 
 // TODO: modularize
 // module.exports = EmailChecker;

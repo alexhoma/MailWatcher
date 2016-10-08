@@ -17,7 +17,8 @@
         email.addEventListener('change', function () {
             var ec = new EmailChecker('email', {
                 mode: 'soft',
-                locale: 'es-ES'
+                locale: 'es-ES',
+                whitelist: ['gmaili','gmailer']
             });
             ec.check()
         });

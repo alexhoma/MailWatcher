@@ -15,8 +15,8 @@
     <script>
         var email = document.getElementById('email');
         email.addEventListener('change', function () {
-            var checker = new EmailChecker();
-            checker.check(this)
+            var ec = new EmailChecker('email');
+            ec.check()
         });
     </script>
 </body>

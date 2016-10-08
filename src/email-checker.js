@@ -11,9 +11,11 @@
  *
  * @class
  */
-var EmailChecker = function () {
+var EmailChecker = function (emailId, settings) {
     this.NAME = 'EmailChecker';
     this.VERSION = '1.0.3';
+    this.emailId = emailId;
+    this.settings = settings;
 }
 
 EmailChecker.prototype = {
@@ -32,8 +34,18 @@ EmailChecker.prototype = {
     ],
 
     validTLDs: [ // TODO: implementar correcciones para los TLD's
-        'es', 'com'
+        'es', 'com', 'net', 'barcelona'
     ],
+
+    /**
+     *
+     */
+    defaults: {
+        mode: 'strict', // use recommendations or sanitize directly
+        locale: 'en-En', // only one locale for now
+        whitelist: this.whitelist,
+        blacklist: this.blacklist
+    },
 
     /**
      * Initializer
@@ -43,27 +55,23 @@ EmailChecker.prototype = {
      *  -> bool (true): si el email no necdesita corrección
      *  -> string: email corregido
      */
-    check: function (email) {
+    check: function () {
+        var email = document.getElementById(this.emailId);
         var e = email.value;
         var restored;
 
         // Descomponemos email
         var extracted  = this.splitEmail(e);
-        var user   = extracted.user;
-        var domain = extracted.domain;
-        var tld    = extracted.tld;
 
         // Validamos el email
-        var validation = this.validationApproach(domain);
-        if (validation) {
-            return true;
-        } else {
-            restored = this.repairEmail(domain);
+        var validation = this.validationApproach(extracted.domain);
+        if (!validation) {
+            restored = this.repairEmail(extracted.domain);
         }
 
         // Reconstruimos el email y modificamos el DOM
         if ( typeof restored !== "undefined" ) {
-            var correctEmail = user + '@' + restored + '.' + tld;
+            var correctEmail = extracted.user + '@' + restored + '.' + extracted.tld;
             var putFinalEmail = email.value = correctEmail;
             return putFinalEmail;
         } else {
@@ -73,10 +81,9 @@ EmailChecker.prototype = {
 
     /**
      * Split email
-     * Descompone los elementos variables de un correo email
+     * Split the variable elements of an email string
      * @example
      *  // returns 'alex.martin', 'derecho', 'com'
-     *
      * @param {string} e - email completo para que queremos separar
      * @returns {{
      *     user: string,
@@ -99,7 +106,7 @@ EmailChecker.prototype = {
             domain = this.sanitize(domain);
 
             tld = e.substr( indexOfElement, e.length );
-            tld = tld.split('.')[1];
+            tld = tld.split('.')[1]; // take from the second dot
             tld = this.sanitize(tld);
         }
 
@@ -122,7 +129,7 @@ EmailChecker.prototype = {
      *  -> true:  es válido
      *  -> false: es inválido
      */
-    validationApproach: function (domain) { // TODO: Es necesario refactorizar este proceso
+    validationApproach: function (domain) { // TODO: refacor this process
         var blacklist = this.blacklist;
         var whitelist = this.whitelist;
         var isInBlacklist = false;
@@ -171,7 +178,7 @@ EmailChecker.prototype = {
 
         // Approach conclusion
         if (typeof isValidEmail == 'undefined') {
-            console.log('El email no figura en nustra lista de emails válidos. Pero es muy probable que sea correcto.');
+            console.log('The email is not on your valid emails list. But it is very likely to be correct.');
             return isValidEmail = true;
         } else {
             return isValidEmail;
@@ -282,13 +289,13 @@ EmailChecker.prototype = {
      *
      * @param string
      * @returns {XML|void|string|*}
-     * // TODO: toLowerCase() ?
-     * // TODO: sólo sanea si el email es inválido, si no no. --> Debria aplicarse a todo.
+     * // TODO: only sanitizes if the email is invalid, if not, no. --> it should be applied for all.
      */
     sanitize: function (string) {
         var sanitized;
-        sanitized = string.trim();
-        sanitized = sanitized.replace(' ', '');
+            sanitized = string.trim();
+            sanitized = sanitized.replace(' ', '');
+            sanitized = sanitized.toLowerCase();
 
         return sanitized;
     }

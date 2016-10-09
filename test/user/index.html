@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User test</title>
+    <title>User Experience Test</title>
     <script src="../../src/email-checker.js"></script>
     <style>
         body { font-family: sans-serif; }
@@ -23,7 +23,7 @@
     </style>
 </head>
 <body>
-    <h1>Testing form</h1>
+    <h1>Testing form (user experience)</h1>
     <form action="#">
         <input type="text" id="email">
         <button type="input">Send</button>
@@ -34,9 +34,10 @@
         email.addEventListener('change', function () {
             var ec = new EmailChecker('email', {
                 mode: 'soft',
-                locale: 'haw-US', // --> this is not working now
+                locale: 'haw-US', // this is not working now because of the custom 'copy'
                 distance: 1,
-                // copy: 'Maybe <%= email %>, no?'
+                accuracy: 'medium',
+                copy: 'What about <%= email %>, huh?'
             });
             ec.check();
         });

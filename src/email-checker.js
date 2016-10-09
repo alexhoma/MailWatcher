@@ -59,7 +59,7 @@ EmailChecker.prototype = {
 
     // * Default options
     defaults: {
-        mode: 'hard',                           // 'hard' or 'soft' mode
+        mode: 'soft',                           // 'hard' or 'soft' mode
         locale: 'en-EN',                        // english locale
         accuracy: 'medium',                     // medium or high
         distance: 1,                            // 1 - 10 or more..
@@ -189,11 +189,13 @@ EmailChecker.prototype = {
         // TODO: Esta aproximación puede generar conflictos al corregir emails que no tienen por qué ser erróneos
         //       Añadir un recomendador en estos casos en vez de sanearlo directamente
         //       "Quizás quiso decir.."
-        if (typeof isValidEmail == 'undefined' && domain.length > 5) { // filtro por longitud de cadena para acotar aproximación
+        if (typeof isValidEmail == 'undefined') { // filtro por longitud de cadena para acotar aproximación
             var distance;
             for (i = 0; i < this.whitelist.length; i++) {
                 // calculamos la proximidad de cadenas --> máximo un dígito
+                debugger;
                 distance = Math.round(this.whitelist[i].length - domain.length);
+                console.log(distance);
                 if (distance >= -this.defaults.distance && distance <= this.defaults.distance) {
                     // calculamos aproximación levenshtein
                     approach = this.levenshtein(this.whitelist[i], domain);

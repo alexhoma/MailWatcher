@@ -40,10 +40,11 @@ EmailChecker.prototype = {
     ],
 
     accuracy: {
-        high   : {min: 1, max: 2},
-        medium : {min: 1, max: 3},
-        low    : {min: 1, max: 4},
-        lowest : {min: 1, max: 5}
+        highest : {min: 1, max: 1},
+        high    : {min: 1, max: 2},
+        medium  : {min: 1, max: 3},
+        low     : {min: 1, max: 4},
+        lowest  : {min: 1, max: 5}
     },
 
     locale: { // TODO: add locales as an external file ?
@@ -319,7 +320,6 @@ EmailChecker.prototype = {
      *
      * @param string
      * @returns {XML|void|string|*}
-     * // TODO: only sanitizes if the email is invalid, if not, no. --> it should be applied for all.
      */
     sanitize: function (string) {
         var sanitized;
@@ -339,7 +339,6 @@ EmailChecker.prototype = {
     suggest: function (suggestion) {
         var CCopy = this.defaults.copy;
         var copy;
-        debugger;
         // create anchor with the email
         var anchor = '<a href="#" onclick="addEmail()">' + suggestion + '</a>';
 

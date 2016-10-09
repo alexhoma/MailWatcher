@@ -32,14 +32,14 @@
     <script>
         var email = document.getElementById('email');
         email.addEventListener('change', function () {
-            var ec = new EmailChecker('email', {
+            var c = new EmailChecker('email', {
                 mode: 'soft',
-                locale: 'haw-US', // this is not working now because of the custom 'copy'
+                locale: 'haw-US', // this is not working since you're using custom 'copy'
                 distance: 1,
                 accuracy: 'medium',
                 copy: 'What about <%= email %>, huh?'
             });
-            ec.check();
+            c.check();
         });
     </script>
 </body>

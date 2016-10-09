@@ -244,7 +244,8 @@ EmailChecker.prototype = {
             if (matches.length == 1) {
                 restored = matches[0];
             } else {
-                // TODO: implementar un matching más preciso para que no ocurran estos casos.
+                // TODO: implementar un matching más preciso para que no ocurran estos casos. Evitar ambigüedad entre dos dominios
+                //       Guardar el valor obtenido de levenshtein y coger del array el más preciso
                 console.log('Hay más de un email válido que coincide con la corrección. Por tanto no lo vamos a corregir.')
             }
         } else {

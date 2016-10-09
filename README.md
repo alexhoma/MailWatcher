@@ -20,7 +20,7 @@ emailInput.addEventListener('change', function() {
 ```
 
 ### Custom usage
-#### Mode:
+#### 1. Mode:
 Email Checker has two modes: 
 - **Soft**: (default mode) Prints a suggestion of a possible valid email.
 - **Hard**: Instead of a valid email suggestion, hard mode corrects the email directly.
@@ -30,8 +30,8 @@ var c = new EmailChecker('email', {
 });
 ```
 
-#### Locales:
-This method is not available in hard mode.
+#### 2. Locales:
+This method is not available in hard mode.<br>
 There is a list of locales you can use. I'll show some examples:
 ```javascript
 {
@@ -51,9 +51,9 @@ var c = new EmailChecker('email', {
 });
 ```
 
-#### Custom copy:
-This method is not available in hard mode.
-You can aslo put a custom copy if you don't like the default ones. This method will overwrite locales, so if you have enabled any, the locale won't work.
+#### 3. Custom copy:
+This method is not available in hard mode.<br>
+You can put a custom copy if you don't like the default ones. This method will overwrite locales, so if you have enabled any, the locale won't work.
 ```javascript
 var c = new EmailChecker('email', {
     copy: 'Why not <%= email %>, huh?'
@@ -61,10 +61,16 @@ var c = new EmailChecker('email', {
 ```
 Don't forget to put `<%= email %>` in your sentence to print the valid email in the suggestion.
 
-#### Distance:
+#### 4. Distance:
+This is to control the character distance between the 'invalid' email and the 'possible valid emails'.
+```javascript
+var c = new EmailChecker('email', {
+    distance: 5 // -> default 1
+});
+```
+This method is closely associated with the accuracy. The higher the number of distance characters the more dificult will be to find a fiable match.
 
-
-#### Accuracy:
+#### 5. Accuracy:
 The higher the accuracy, the more likely that matches the suggestion.
 Accuracy values can be: `highest`, `high`, `medium`, `low`, `lowest`. I recommend to put your accuracy between `high` and `low`.
 ```javascript
@@ -74,7 +80,6 @@ var c = new EmailChecker('email', {
 ```
 
 ### Todo's
-
 - Check/validation for Top Level Domains.
 - Create customs blacklist and whitelist. Now must be updated. 
 - Create all locales and add it as an optional external file.

@@ -1,35 +1,36 @@
 # Email Checker (email-checker.js)
-An easy to use email checker for typos in domain names.
+It's an easy-to-use tool to check the typos of your user emails.
 
-## Description
-Corrector de emails erróneos o que es muy probable que lo sean.
+### Methodology
+- Selects the email input value.
+- Splits the email by name, domain, and TLD.
+- Sanitizes white spaces.
+- Compares using Slevenshtein Distance if the email could be invalid.
+- Reassemble the email with their corrected parts.
 
-- Selecciona el string del email por el id de su input.
-- Divide el email por partes (nombre, dominio y TLD).
-- Sanea espacios y caracteres vacíos.
-- Compara por tres aproximaciones si el email es válido o no.
-- Vuelve a montar el email con sus partes corregidas o no.
-- Modifica el valor del input del email.
 
-El core de la funcionalidad está basado en el algoritmo de [Distancia de Levenshtein](https://es.wikipedia.org/wiki/Distancia_de_Levenshtein).
-
-### Example:
-![dentificacion de cliente20160414134821](https://cloud.githubusercontent.com/assets/7917771/14527120/0e637b04-0248-11e6-88d9-fdd243cd3df1.gif)
-
-## Usage
-
-1. Añadir libreria en el `head` -> `<script type="text/javascript" src="/vendor/emailChecker.js"></script>`
-2. Añadir evento en el input de email a corregir:
+### Basic usage
+Email checker only needs the id of the email input you want to check. Just remember to add a listener on this input to invoke the class when the element changes, like the example below:
 
 ```javascript
-var emailInput = document.getElementById('billing:email');
+var emailInput = document.getElementById('email');
 emailInput.addEventListener('change', function() {
-    emailChecker.check(this);
+    var c = new EmailChecker('email');
+    c.check();
 });
 ```
 
-## Todo's
+### Custom usage
+#### Hard mode:
+```javascript
+var c = new EmailChecker('email', {
+    
+});
+c.check();
+```
 
-- Implementar correcciones para los TLD's.
-- Implementar matchings más precisos para el comparador de cadenas.
-- Acotar mejor el saneador de elementos.
+### Todo's
+
+- Check/validation for Top Level Domains.
+- Create customs blacklist and whitelist. Now must be updated 
+- Create all locales and add it as an optional external file.

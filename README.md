@@ -10,6 +10,7 @@ It's an easy-to-use tool to check the typos of your user emails.
 
 
 ### Basic usage
+Add this tag before head ends --> `<script type="text/javascript" src="/vendor/email-checker.js"></script>` <br>
 Email checker only needs the id of the email input you want to check. Just remember to add a listener on this input to invoke the class when the element changes, like the example below:
 ```javascript
 var emailInput = document.getElementById('email');

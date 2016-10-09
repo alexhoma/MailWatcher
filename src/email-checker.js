@@ -390,4 +390,6 @@ function addEmail () {
 }
 
 // TODO: modularize
-// module.exports = EmailChecker;
+/* if (typeof module !== 'undefined' && module.exports) {
+    module.exports = EmailChecker;
+}*/

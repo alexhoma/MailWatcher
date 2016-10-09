@@ -16,14 +16,15 @@ var EmailChecker = function (emailId, settings) {
     this.VERSION = '1.0.3';
     this.emailId = emailId;
     this.settings = this.updateDefaults(settings);
-}
+};
 
 EmailChecker.prototype = {
 
     constructor: EmailChecker,
 
     whitelist: [
-        'gmail', 'hotmail', 'yahoo', 'outlook', 'derecho'
+        'gmail', 'hotmail', 'yahoo', 'outlook', 'bing', 'icloud', 'googlemail',
+        'telefonica', 'terra', 'derecho'
     ],
 
     blacklist: [
@@ -46,29 +47,29 @@ EmailChecker.prototype = {
     },
 
     locale: { // TODO: add locales as an external file ?
-        'en-EN' : 'Did you mean',
-        'es-ES' : 'Querías decir',
-        'ca-ES' : 'Volies dir',
-        'pt-PT' : 'Você quis dizer',
-        'it-IT' : 'Intendevi',
-        'fr-FR' : 'Vouliez-vous dire',
-        'haw-US': 'La oe i ke ano o'
+        'en-EN' : 'Did you mean <%= email %>?',
+        'es-ES' : 'Querías decir <%= email %>?',
+        'ca-ES' : 'Volies dir <%= email %>?',
+        'pt-PT' : 'Você quis dizer <%= email %>?',
+        'it-IT' : 'Intendevi <%= email %>?',
+        'fr-FR' : 'Vouliez-vous dire <%= email %>?',
+        'haw-US': 'La oe i ke ano o <%= email %>?'
     },
 
     // * Default options
     defaults: {
-        mode: 'hard', // 'hard' or 'soft' mode
-        locale: 'en-En',   // TODO: create locales for suggestions
-        accuracy: 'medium', // medium or high
-        distance: 1 // 1 - 10
-        // TODO: update whitelist and blacklist
+        mode: 'hard',                           // 'hard' or 'soft' mode
+        locale: 'en-EN',                        // english locale
+        accuracy: 'medium',                     // medium or high
+        distance: 1,                            // 1 - 10 or more..
+        copy: undefined
+                                                // TODO: update whitelist and blacklist
     },
 
     /**
      * Initializer
      *
-     * @param email
-     * @returns {bool/string}
+     * @returns {string} correct email || sanitized email
      *  -> bool (true): if the email domain doesn't need correction
      *  -> string: email corrected
      */
@@ -336,9 +337,29 @@ EmailChecker.prototype = {
      * @returns {Element}
      */
     suggest: function (suggestion) {
+        var CCopy = this.defaults.copy;
+        var copy;
+        debugger;
+        // create anchor with the email
+        var anchor = '<a href="#" onclick="addEmail()">' + suggestion + '</a>';
+
+        // blend suggestion sentence
+        if (typeof CCopy !== 'undefined') {
+            if (typeof CCopy === 'string') {
+                copy = CCopy;
+            } else {
+                throw new Error('Custom copy must by type string: ' + CCopy);
+            }
+        } else {
+            copy = this.locale[this.defaults.locale];
+        }
+        // replace anchor on copy sentence
+        copy = copy.replace('<%= email %>', anchor);
+
+        // create div element
         var newSuggestion = document.createElement('div');
             newSuggestion.setAttribute('id', 'suggestion');
-            newSuggestion.innerHTML = this.locale[this.defaults.locale] + ' <a href="#" onclick="addEmail()">' + suggestion + '</a>?';
+            newSuggestion.innerHTML = copy;
 
         return newSuggestion;
     },
@@ -359,7 +380,7 @@ EmailChecker.prototype = {
     }
 };
 
-// TODO: do something with this, don't like inline scripts
+// TODO: do something with this, don't like inline scripts --> onclick: "addEmail()"
 function addEmail () {
     var anchor = document.querySelector('#suggestion a');
     var email = document.getElementById('email');

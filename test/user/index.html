@@ -34,10 +34,11 @@
         email.addEventListener('change', function () {
             var ec = new EmailChecker('email', {
                 mode: 'soft',
-                locale: 'haw-US',
-                distance: 1
+                locale: 'haw-US', // --> this is not working now
+                distance: 1,
+                // copy: 'Maybe <%= email %>, no?'
             });
-            ec.check()
+            ec.check();
         });
     </script>
 </body>

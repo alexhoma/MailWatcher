@@ -22,11 +22,15 @@ EmailChecker.prototype = {
 
     constructor: EmailChecker,
 
+    /**
+     * Whitelist: List of correct emails */
     whitelist: [
         'gmail', 'hotmail', 'yahoo', 'outlook', 'bing', 'icloud', 'googlemail',
         'telefonica', 'terra', 'derecho'
     ],
 
+    /**
+     * Blacklist: list of the most common typos */
     blacklist: [
         /*Gmail*/   'gemail', 'gmil', 'gmal', 'emai', 'gmai',
         /*Hotmail*/ 'hotmal', 'hormal', 'hormail', 'homail', 'hitmail', 'hotamail',
@@ -34,6 +38,8 @@ EmailChecker.prototype = {
         /*Outlook*/ 'outlok', 'oultook', 'utlook', 'outoolk'
     ],
 
+    /**
+     * List of common TLD's */
     validTLDs: [ // TODO: implement checker for TLD's
         'cat', 'es', 'com', 'net', 'org', 'io',
         'barcelona', 'design', 'online', 'tech'
@@ -54,6 +60,11 @@ EmailChecker.prototype = {
         'pt-PT' : 'Você quis dizer <%= email %>?',
         'it-IT' : 'Intendevi <%= email %>?',
         'fr-FR' : 'Vouliez-vous dire <%= email %>?',
+        'de-DE' : 'Hast du <%= email %> bedeuten?',
+        'nl-NL' : 'Bedoelde u <%= email %>?',
+        'pl-PL' : 'Czy chodziło Ci o <%= email %>?',
+        // --> just for testing
+        'ko-KR' : '당신은 <%= email %> 찾으시는 것입니까?',
         'haw-US': 'La oe i ke ano o <%= email %>?'
     },
 
@@ -193,7 +204,6 @@ EmailChecker.prototype = {
             var distance;
             for (i = 0; i < this.whitelist.length; i++) {
                 // calculamos la proximidad de cadenas --> máximo un dígito
-                debugger;
                 distance = Math.round(this.whitelist[i].length - domain.length);
                 console.log(distance);
                 if (distance >= -this.defaults.distance && distance <= this.defaults.distance) {

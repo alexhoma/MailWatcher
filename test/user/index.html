@@ -34,9 +34,9 @@
         email.addEventListener('change', function () {
             var c = new EmailChecker('email', {
                 mode: 'soft',
-                locale: 'haw-US', // this is not working since you're using custom 'copy'
+                locale: 'en-EN', // this is not working since you're using custom 'copy'
                 distance: 1,
-                accuracy: 'medium',
+                accuracy: 'high',
                 copy: 'What about <%= email %>, huh?'
             });
             c.check();

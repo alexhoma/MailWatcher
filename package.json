@@ -1,7 +1,7 @@
 {
-  "name": "email-checker",
-  "version": "1.0.0",
-  "description": "Email checker for common errors in domain and TLD names.",
+  "name": "Email Checker",
+  "version": "1.0.4",
+  "description": "Email checker for common typos in domain and TLD names.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

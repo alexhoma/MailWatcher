@@ -1,4 +1,5 @@
-# Email Checker (email-checker.js)
+# Email Checker &nbsp;&nbsp; [![Latest Stable Version](https://img.shields.io/badge/version-v1.0.4-green.svg?style=flat-square)](https://github.com/alexhoma/email-checker)
+
 It's an easy-to-use tool to check the typos of your user emails.
 
 ### Methodology

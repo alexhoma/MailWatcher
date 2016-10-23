@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>User Experience Test</title>
-    <script src="../../src/email-checker.js"></script>
+    <script src="../../src/MailWatcher.js"></script>
     <style>
         body { font-family: sans-serif; }
         h1 { font-size:20px; }
@@ -32,14 +32,14 @@
     <script>
         var email = document.getElementById('email');
         email.addEventListener('change', function () {
-            var c = new EmailChecker('email', {
+            var w = new MailWatcher('email', {
                 mode: 'soft',
                 locale: 'en-EN', // this is not working since you're using custom 'copy'
                 distance: 1,
                 accuracy: 'high',
                 copy: 'What about <%= email %>, huh?'
             });
-            c.check();
+            w.check();
         });
     </script>
 </body>

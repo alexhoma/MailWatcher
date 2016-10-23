@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Email Checker JS
+ * Email Watcher JS
  *
  * @description Email sanitizer and domain checker
  * @see {@link https://gist.github.com/alexhoma/e3ea1a134dead1671011b4acb55b6522}
@@ -9,18 +9,19 @@
  * @author alexhoma <alexcm.14@gmail.com>
  * @version 1.0.4
  *
+ *
  * @class
  */
-var EmailChecker = function (emailId, settings) {
-    this.NAME = 'EmailChecker';
+var MailWatcher = function (emailId, settings) {
+    this.NAME = 'MailWatcher';
     this.VERSION = '1.0.4';
     this.emailId = emailId;
     this.settings = this.updateDefaults(settings);
 };
 
-EmailChecker.prototype = {
+MailWatcher.prototype = {
 
-    constructor: EmailChecker,
+    constructor: MailWatcher,
 
     /**
      * Whitelist: List of correct emails */
@@ -403,5 +404,5 @@ function addEmail () {
 
 // TODO: modularize
 /* if (typeof module !== 'undefined' && module.exports) {
-    module.exports = EmailChecker;
+    module.exports = MailWatcher;
 }*/

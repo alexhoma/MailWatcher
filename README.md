@@ -1,8 +1,10 @@
-# Email Checker &nbsp;&nbsp; [![Latest Stable Version](https://img.shields.io/badge/version-v1.0.4-green.svg?style=flat-square)](https://github.com/alexhoma/email-checker)
+# MailWatcher &nbsp;&nbsp; [![Latest Stable Version](https://img.shields.io/badge/version-v1.0.4-green.svg?style=flat-square)](https://github.com/alexhoma/email-checker)
 
-An easy-to-use tool to check the typos of your user emails.
+An easy-to-use tool that watches the email input of your application and checks if the email can have some typos and shows a good suggestion.<br>
+It's highly customizable, It has different locales for suggestions, modes and more! <br>
+Feel free to contribute or suggest improvements :)
 
-### Methodology
+### How it works...
 - Selects the email input value.
 - Splits the email by name, domain, and TLD.
 - Sanitizes white spaces.
@@ -16,8 +18,8 @@ Email checker only needs the id of the email input you want to check. Just remem
 ```javascript
 var emailInput = document.getElementById('email');
 emailInput.addEventListener('change', function() {
-    var c = new EmailChecker('email');
-    c.check();
+    var w = new MailWatcher('email');
+    w.check();
 });
 ```
 
@@ -27,7 +29,7 @@ Email Checker has two modes:
 - **Soft**: (default mode) Prints a suggestion of a possible valid email.
 - **Hard**: Instead of a valid email suggestion, hard mode corrects the email directly.
 ```javascript
-var c = new EmailChecker('email', {
+var w = new MailWatcher('email', {
     mode: 'hard' // -> default 'soft'
 });
 ```
@@ -48,7 +50,7 @@ There is a list of locales you can use. I'll show some examples:
 ```
 Then just put the locale value:
 ```javascript
-var c = new EmailChecker('email', {
+var w = new MailWatcher('email', {
     locale: 'haw-US' // -> default 'en-EN'
 });
 ```
@@ -57,7 +59,7 @@ var c = new EmailChecker('email', {
 This method is not available in hard mode.<br>
 You can put a custom copy if you don't like the default ones. This method will overwrite locales, so if you have enabled any, the locale won't work.
 ```javascript
-var c = new EmailChecker('email', {
+var w = new MailWatcher('email', {
     copy: 'Why not <%= email %>, huh?'
 });
 ```
@@ -66,7 +68,7 @@ Don't forget to put `<%= email %>` in your sentence to print the valid email in 
 #### 4. Distance:
 This is to control the character distance between the 'invalid' email and the 'possible valid emails'.
 ```javascript
-var c = new EmailChecker('email', {
+var w = new MailWatcher('email', {
     distance: 5 // -> default 1
 });
 ```
@@ -76,7 +78,7 @@ This method is closely associated with the accuracy. The higher the number of di
 The higher the accuracy, the more likely that matches the suggestion.
 Accuracy values can be: `highest`, `high`, `medium`, `low`, `lowest`. I recommend to put your accuracy between `high` and `low`.
 ```javascript
-var c = new EmailChecker('email', {
+var w = new MailWatcher('email', {
     accuracy: 'high' // -> default 'medium'
 });
 ```

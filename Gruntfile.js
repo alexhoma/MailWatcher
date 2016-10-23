@@ -10,7 +10,7 @@ module.exports = function(grunt){
                     banner: '/*! <%= pkg.name %> v<%= pkg.version %>\n @author <%= pkg.author %>\n <%= grunt.template.today("yyyy-mm-dd") %> */\n'
                 },
                 files: {
-                    'dist/email-checker.js': ['src/*.js']
+                    'dist/mailwatcher.js': ['src/*.js']
                 }
             }
         },
@@ -18,7 +18,7 @@ module.exports = function(grunt){
         uglify: {
             build: {
                 files: {
-                    'dist/email-checker.min.js': ['dist/email-checker.js']
+                    'dist/mailwatcher.min.js': ['dist/MailWatcher.js']
                 }
             }
         },

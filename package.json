@@ -1,5 +1,5 @@
 {
-  "name": "Email Checker",
+  "name": "MailWatcher",
   "version": "1.0.4",
   "description": "Email checker for common typos in domain and TLD names.",
   "main": "index.js",
@@ -8,22 +8,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexhoma/email-checker.git"
+    "url": "git+https://github.com/alexhoma/MailWatcher.git"
   },
   "keywords": [
     "Email",
     "checker",
     "validator",
     "email",
-    "validator",
+    "watcher",
     "corrector"
   ],
   "author": "alexhoma <alexcm.14@gmail.com>",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/alexhoma/email-checker/issues"
+    "url": "https://github.com/alexhoma/MailWatcher/issues"
   },
-  "homepage": "https://github.com/alexhoma/email-checker#readme",
+  "homepage": "https://github.com/alexhoma/MailWatcher#readme",
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-browserify": "^5.0.0",

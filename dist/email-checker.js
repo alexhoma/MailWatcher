@@ -1,12 +1,12 @@
 /*! Email Checker v1.0.4
  @author alexhoma <alexcm.14@gmail.com>
- 2016-10-12 */
+ 2016-10-23 */
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
 /**
- * Email Checker JS
+ * Email Watcher JS
  *
  * @description Email sanitizer and domain checker
  * @see {@link https://gist.github.com/alexhoma/e3ea1a134dead1671011b4acb55b6522}
@@ -14,18 +14,19 @@
  * @author alexhoma <alexcm.14@gmail.com>
  * @version 1.0.4
  *
+ *
  * @class
  */
-var EmailChecker = function (emailId, settings) {
-    this.NAME = 'EmailChecker';
+var MailWatcher = function (emailId, settings) {
+    this.NAME = 'MailWatcher';
     this.VERSION = '1.0.4';
     this.emailId = emailId;
     this.settings = this.updateDefaults(settings);
 };
 
-EmailChecker.prototype = {
+MailWatcher.prototype = {
 
-    constructor: EmailChecker,
+    constructor: MailWatcher,
 
     /**
      * Whitelist: List of correct emails */
@@ -408,6 +409,6 @@ function addEmail () {
 
 // TODO: modularize
 /* if (typeof module !== 'undefined' && module.exports) {
-    module.exports = EmailChecker;
+    module.exports = MailWatcher;
 }*/
 },{}]},{},[1]);

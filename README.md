@@ -13,7 +13,7 @@ Feel free to contribute or suggest improvements :)
 
 
 ### Basic usage
-Add this tag before head ends --> `<script type="text/javascript" src="/vendor/email-checker.min.js"></script>` <br>
+Add this tag before head ends --> `<script type="text/javascript" src="/vendor/mailwatcher.min.js"></script>` <br>
 Email checker only needs the id of the email input you want to check. Just remember to add a listener on this input to invoke the class when the element changes, like the example below:
 ```javascript
 var emailInput = document.getElementById('email');

@@ -1,4 +1,4 @@
-/*! Email Checker v1.0.4
+/*! MailWatcher v1.0.4
  @author alexhoma <alexcm.14@gmail.com>
  2016-10-23 */
 
@@ -23,6 +23,7 @@ var MailWatcher = function (emailId, settings) {
     this.emailId = emailId;
     this.settings = this.updateDefaults(settings);
 };
+
 
 MailWatcher.prototype = {
 

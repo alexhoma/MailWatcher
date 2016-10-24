@@ -26,8 +26,6 @@ var MailWatcher = function (emailId, settings) {
 
 MailWatcher.prototype = {
 
-    constructor: MailWatcher,
-
     /**
      * Whitelist: List of correct emails */
     whitelist: [

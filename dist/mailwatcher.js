@@ -1,6 +1,6 @@
 /*! MailWatcher v1.0.4
  @author alexhoma <alexcm.14@gmail.com>
- 2016-10-23 */
+ 2016-10-24 */
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
@@ -23,7 +23,6 @@ var MailWatcher = function (emailId, settings) {
     this.emailId = emailId;
     this.settings = this.updateDefaults(settings);
 };
-
 
 MailWatcher.prototype = {
 
@@ -408,8 +407,7 @@ function addEmail () {
     suggestion.remove();
 }
 
-// TODO: modularize
-/* if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== 'undefined' && module.exports) {
     module.exports = MailWatcher;
-}*/
+}
 },{}]},{},[1]);

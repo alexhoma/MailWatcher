@@ -402,7 +402,6 @@ function addEmail () {
     suggestion.remove();
 }
 
-// TODO: modularize
-/* if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== 'undefined' && module.exports) {
     module.exports = MailWatcher;
-}*/
+}
